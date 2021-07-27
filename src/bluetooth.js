@@ -22,12 +22,12 @@ const bluetoothService = (leftWheel, rightWheel) => {
 
 	  if(isNaN(speed) || speed < -100 || speed > 100){
             console.log("ERROR: value has to be between -100 and 100");
-            callback("error");
+            callback(Characteristic.RESULT_UNLIKELY_ERROR);
             return;
           }
 
           leftWheel(speed);
-          callback("success");
+          callback(Characteristic.RESULT_SUCCESS);
         },
       }),
       new Characteristic({
@@ -44,12 +44,12 @@ const bluetoothService = (leftWheel, rightWheel) => {
 
 	  if(isNaN(speed) || speed < -100 || speed > 100){
             console.log("ERROR: value has to be between -100 and 100");
-            callback("error");
+            callback(Characteristic.RESULT_UNLIKELY_ERROR);
             return;
           }
 
           rightWheel(speed);
-          callback("success");
+          callback(Characteristic.RESULT_SUCCESS);
         },
       })
     ]
