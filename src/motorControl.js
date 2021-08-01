@@ -24,49 +24,58 @@ const speedFromPercent = (percent) => {
   return rangePart * percent + SPEED_MIN;
 };
 
-const setupPwm = (left, right) => new Promise((resolve, reject) => {
-  const pwm = new Pca9685Driver(
-    {
-      i2c: i2cBus.openSync(1),
-      address: 0x40,
-      frequency: 50,
-      debug: false
-    }, function(err) {
-      if (err) {
+const setupPwm = (left, right) =>
+  new Promise((resolve, reject) => {
+    const pwm = new Pca9685Driver(
+      {
+        i2c: i2cBus.openSync(1),
+        address: 0x40,
+        frequency: 50,
+        debug: false,
+      },
+      function (err) {
+        if (err) {
           console.error("Error initializing PCA9685");
           reject(err);
           process.exit(-1);
+        }
+        pwm.setDutyCycle(left, 100);
+        pwm.setDutyCycle(right, 100);
+        resolve(pwm);
       }
-      pwm.setDutyCycle(left, 100);   
-      pwm.setDutyCycle(right, 100);
-      resolve(pwm);
-    }
-  );
-});
+    );
+  });
 
 const motorControl = async () => {
-
   const pwm = await setupPwm(WHEELS.LEFT.PWM, WHEELS.RIGHT.PWM);
 
   return {
     left: (speed) => {
       const forward = speed >= 0;
-      if(forward) {
+      if (forward) {
         pwm.channelOff(WHEELS.LEFT.PIN_BACKWARD);
         pwm.setPulseRange(WHEELS.LEFT.PIN_FORWARD, 0, speedFromPercent(speed));
       } else {
         pwm.channelOff(WHEELS.LEFT.PIN_FORWARD);
-        pwm.setPulseRange(WHEELS.LEFT.PIN_BACKWARD, 0, speedFromPercent(speed * -1));
+        pwm.setPulseRange(
+          WHEELS.LEFT.PIN_BACKWARD,
+          0,
+          speedFromPercent(speed * -1)
+        );
       }
     },
     right: (speed) => {
       const forward = speed >= 0;
-      if(forward) {
+      if (forward) {
         pwm.channelOff(WHEELS.RIGHT.PIN_BACKWARD);
         pwm.setPulseRange(WHEELS.RIGHT.PIN_FORWARD, 0, speedFromPercent(speed));
       } else {
         pwm.channelOff(WHEELS.RIGHT.PIN_FORWARD);
-        pwm.setPulseRange(WHEELS.RIGHT.PIN_BACKWARD, 0, speedFromPercent(speed * -1));
+        pwm.setPulseRange(
+          WHEELS.RIGHT.PIN_BACKWARD,
+          0,
+          speedFromPercent(speed * -1)
+        );
       }
     },
     stop: () => {
@@ -74,8 +83,8 @@ const motorControl = async () => {
       pwm.channelOff(WHEELS.LEFT.PIN_BACKWARD);
       pwm.channelOff(WHEELS.RIGHT.PIN_FORWARD);
       pwm.channelOff(WHEELS.RIGHT.PIN_BACKWARD);
-    }
-  }  
+    },
+  };
 };
 
 module.exports = motorControl;

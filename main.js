@@ -4,7 +4,7 @@ const utils = require("./src/utils.js");
 
 const run = async () => {
   console.log("starting..");
-  
+
   const mc = await motorControl();
   console.log("motor started");
 
@@ -12,13 +12,13 @@ const run = async () => {
   mc.right(50);
   await utils.wait(50);
   mc.stop();
-  
+
   bluetoothService((cmd, speed = 0) => {
-    if(cmd === "stop") {
+    if (cmd === "stop") {
       mc.stop();
-    } else if(cmd === "l") {
+    } else if (cmd === "l") {
       mc.left(speed);
-    } else if(cmd === "r") {
+    } else if (cmd === "r") {
       mc.right(speed);
     } else {
       console.log("ERROR: invalid command");
