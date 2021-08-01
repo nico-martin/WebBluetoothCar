@@ -1,9 +1,8 @@
 const i2cBus = require("i2c-bus");
 const Pca9685Driver = require("pca9685").Pca9685Driver;
-const bleno = require("bleno");
 
 const SPEED_MAX = 4000;
-const SPEED_MIN = 1000;
+const SPEED_MIN = 500;
 
 const WHEELS = {
   LEFT: {

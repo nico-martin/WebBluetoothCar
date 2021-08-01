@@ -3,7 +3,7 @@ process.env["BLENO_DEVICE_NAME"] = "Nicos Web BLE Car";
 const bleno = require("bleno");
 const Characteristic = bleno.Characteristic;
 
-const bluetoothService = (motorCallback) => {
+const bluetoothService = (leftWheel, rightWheel) => {
   const motorControlService = {
     uuid: "fff1",
     characteristics: [
@@ -14,40 +14,43 @@ const bluetoothService = (motorCallback) => {
           new bleno.Descriptor({
             uuid: "fff3",
             value:
-              "motorControl Characteristic. Expects \"{'l'|'r'|'stop'}:{-100 - 100}\"",
+              "motorControl Characteristic for left wheel, expects a number between -100 and 100",
           }),
         ],
         onWriteRequest: (data, offset, withoutResponse, callback) => {
-          data = data.toString();
-          if (data === "stop") {
-            motorCallback("stop");
-            callback("success");
-            return;
-          }
+          const speed = parseInt(data.toString());
 
-          const parts = data.split(":");
-          if (parts.length !== 2) {
-            console.log("ERROR: invalid input data");
-            callback("error");
-            return;
-          }
-
-          const position = parts[0];
-          if (position !== "l" && position !== "r") {
-            console.log("ERROR: first value has to be r or l");
-            callback("error");
-            return;
-          }
-
-          const speed = parseInt(parts[1]);
           if (isNaN(speed) || speed < -100 || speed > 100) {
-            console.log("ERROR: second value has to be between -100 and 100");
-            callback("error");
+            console.log("ERROR: value has to be between -100 and 100");
+            callback(Characteristic.RESULT_UNLIKELY_ERROR);
             return;
           }
 
-          motorCallback(position, speed);
-          callback("success");
+          leftWheel(speed);
+          callback(Characteristic.RESULT_SUCCESS);
+        },
+      }),
+      new Characteristic({
+        uuid: "fff4",
+        properties: ["write"],
+        descriptors: [
+          new bleno.Descriptor({
+            uuid: "fff5",
+            value:
+              "motorControl Characteristic for right wheel, expects a number between -100 and 100",
+          }),
+        ],
+        onWriteRequest: (data, offset, withoutResponse, callback) => {
+          const speed = parseInt(data.toString());
+
+          if (isNaN(speed) || speed < -100 || speed > 100) {
+            console.log("ERROR: value has to be between -100 and 100");
+            callback(Characteristic.RESULT_UNLIKELY_ERROR);
+            return;
+          }
+
+          rightWheel(speed);
+          callback(Characteristic.RESULT_SUCCESS);
         },
       }),
     ],

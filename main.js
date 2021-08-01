@@ -8,22 +8,16 @@ const run = async () => {
   const mc = await motorControl();
   console.log("motor started");
 
+  // greetings
   mc.left(50);
   mc.right(50);
   await utils.wait(50);
   mc.stop();
 
-  bluetoothService((cmd, speed = 0) => {
-    if (cmd === "stop") {
-      mc.stop();
-    } else if (cmd === "l") {
-      mc.left(speed);
-    } else if (cmd === "r") {
-      mc.right(speed);
-    } else {
-      console.log("ERROR: invalid command");
-    }
-  });
+  bluetoothService(
+    (speed = 0) => (speed === 0 ? mc.stop() : mc.left(speed)),
+    (speed = 0) => (speed === 0 ? mc.stop() : mc.right(speed))
+  );
 };
 
 run();
