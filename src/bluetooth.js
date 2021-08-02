@@ -61,6 +61,8 @@ const bluetoothService = async (leftWheel, rightWheel) => {
           const left = parseInt(data.left);
           const right = parseInt(data.right);
 
+          console.log({ left, right });
+
           if (
             isNaN(left) ||
             left < -100 ||
