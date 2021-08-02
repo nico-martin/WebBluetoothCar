@@ -1,8 +1,8 @@
 const i2cBus = require("i2c-bus");
 const Pca9685Driver = require("pca9685").Pca9685Driver;
 
-const SPEED_MAX = 4000;
-const SPEED_MIN = 500;
+const SPEED_MAX = 3000;
+const SPEED_MIN = 1000;
 
 const WHEELS = {
   LEFT: {
@@ -51,6 +51,7 @@ const motorControl = async () => {
   return {
     left: (speed) => {
       const forward = speed >= 0;
+      console.log("left", { forward, speed });
       if (forward) {
         pwm.channelOff(WHEELS.LEFT.PIN_BACKWARD);
         pwm.setPulseRange(WHEELS.LEFT.PIN_FORWARD, 0, speedFromPercent(speed));
@@ -65,6 +66,7 @@ const motorControl = async () => {
     },
     right: (speed) => {
       const forward = speed >= 0;
+      console.log("right", { forward, speed });
       if (forward) {
         pwm.channelOff(WHEELS.RIGHT.PIN_BACKWARD);
         pwm.setPulseRange(WHEELS.RIGHT.PIN_FORWARD, 0, speedFromPercent(speed));
