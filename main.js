@@ -9,9 +9,19 @@ const run = async () => {
   console.log("motor started");
 
   // greetings
+  console.log("greet l");
   mc.left(50);
+
+  await utils.wait(1000);
+
+  console.log("greet r");
+  mc.stop();
   mc.right(50);
+
   await utils.wait(50);
+
+  console.log("greet s");
+
   mc.stop();
 
   // listen for bluetooth commands
