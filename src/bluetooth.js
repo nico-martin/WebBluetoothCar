@@ -76,38 +76,11 @@ const bluetoothService = async (leftWheel, rightWheel) => {
             return;
           }
 
-          console.log({ left, right });
-
           leftWheel(left);
           rightWheel(right);
           callback(Characteristic.RESULT_SUCCESS);
         },
       }),
-      /*
-      new Characteristic({
-        uuid: "fff4",
-        properties: ["write"],
-        descriptors: [
-          new bleno.Descriptor({
-            uuid: "fff5",
-            value:
-              "motorControl Characteristic for right wheel, expects a number between -100 and 100",
-          }),
-        ],
-        onWriteRequest: (data, offset, withoutResponse, callback) => {
-          const speed = parseInt(data.toString());
-          console.log("write right", speed);
-
-          if (isNaN(speed) || speed < -100 || speed > 100) {
-            console.log("ERROR: value has to be between -100 and 100");
-            callback(Characteristic.RESULT_UNLIKELY_ERROR);
-            return;
-          }
-
-          rightWheel(speed);
-          callback(Characteristic.RESULT_SUCCESS);
-        },
-      }),*/
     ],
   };
 
