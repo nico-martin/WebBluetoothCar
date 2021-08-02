@@ -1,0 +1,16 @@
+name: 'Bump Version'
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  bump-version:
+    name: 'Bump Version on master'
+    runs-on: ubuntu-latest
+    steps:
+     - name: 'Bump Version on master'
+       uses:  'phips28/gh-action-bump-version@master'
+       env:
+         GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
