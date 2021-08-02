@@ -50,20 +50,36 @@ const bluetoothService = async (leftWheel, rightWheel) => {
           }),
         ],
         onWriteRequest: (data, offset, withoutResponse, callback) => {
-          console.log("data", JSON.parse(data.toString()));
-          callback(Characteristic.RESULT_SUCCESS);
-          return;
+          data = JSON.parse(data.toString());
 
-          if (isNaN(speed) || speed < -100 || speed > 100) {
+          if (!("left" in data) || !("right" in data)) {
+            console.log("ERROR: invalid data");
+            callback(Characteristic.RESULT_UNLIKELY_ERROR);
+            return;
+          }
+
+          const left = parseInt(data.left);
+          const right = parseInt(data.right);
+
+          if (
+            isNaN(left) ||
+            left < -100 ||
+            left > 100 ||
+            isNaN(right) ||
+            right < -100 ||
+            right > 100
+          ) {
             console.log("ERROR: value has to be between -100 and 100");
             callback(Characteristic.RESULT_UNLIKELY_ERROR);
             return;
           }
 
-          leftWheel(speed);
+          leftWheel(left);
+          rightWheel(right);
           callback(Characteristic.RESULT_SUCCESS);
         },
       }),
+      /*
       new Characteristic({
         uuid: "fff4",
         properties: ["write"],
@@ -87,7 +103,7 @@ const bluetoothService = async (leftWheel, rightWheel) => {
           rightWheel(speed);
           callback(Characteristic.RESULT_SUCCESS);
         },
-      }),
+      }),*/
     ],
   };
 
