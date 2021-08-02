@@ -51,7 +51,6 @@ const motorControl = async () => {
   return {
     left: (speed) => {
       const forward = speed >= 0;
-      console.log("left", speed);
       if (forward) {
         pwm.channelOff(WHEELS.LEFT.PIN_BACKWARD);
         pwm.setPulseRange(WHEELS.LEFT.PIN_FORWARD, 0, speedFromPercent(speed));
@@ -66,7 +65,6 @@ const motorControl = async () => {
     },
     right: (speed) => {
       const forward = speed >= 0;
-      console.log("right", speed);
       if (forward) {
         pwm.channelOff(WHEELS.RIGHT.PIN_BACKWARD);
         pwm.setPulseRange(WHEELS.RIGHT.PIN_FORWARD, 0, speedFromPercent(speed));

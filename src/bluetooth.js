@@ -8,8 +8,6 @@ const deviceInfo = require("./deviceInfo");
 const bluetoothService = async (leftWheel, rightWheel) => {
   const serial = await deviceInfo.deviceSerial();
 
-  console.log("serial", serial);
-
   const deviceInfoService = {
     uuid: "ff01",
     characteristics: [
