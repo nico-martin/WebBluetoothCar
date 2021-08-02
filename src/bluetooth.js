@@ -4,6 +4,22 @@ const bleno = require("bleno");
 const Characteristic = bleno.Characteristic;
 
 const bluetoothService = (leftWheel, rightWheel) => {
+  const deviceInfoService = {
+    uuid: "fff7",
+    characteristics: [
+      new Characteristic({
+        uuid: "fff8",
+        properties: ["write"],
+        descriptors: [
+          new bleno.Descriptor({
+            uuid: "fff9",
+            value: "version",
+          }),
+        ],
+      }),
+    ],
+  };
+
   const motorControlService = {
     uuid: "fff1",
     characteristics: [
@@ -71,7 +87,7 @@ const bluetoothService = (leftWheel, rightWheel) => {
       return;
     }
 
-    bleno.setServices([motorControlService]);
+    bleno.setServices([deviceInfoService, motorControlService]);
   });
 };
 
