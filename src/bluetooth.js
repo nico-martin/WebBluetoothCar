@@ -51,6 +51,7 @@ const bluetoothService = async (leftWheel, rightWheel) => {
         ],
         onWriteRequest: (data, offset, withoutResponse, callback) => {
           const speed = parseInt(data.toString());
+          console.log("write left", speed);
 
           if (isNaN(speed) || speed < -100 || speed > 100) {
             console.log("ERROR: value has to be between -100 and 100");
@@ -74,6 +75,7 @@ const bluetoothService = async (leftWheel, rightWheel) => {
         ],
         onWriteRequest: (data, offset, withoutResponse, callback) => {
           const speed = parseInt(data.toString());
+          console.log("write right", speed);
 
           if (isNaN(speed) || speed < -100 || speed > 100) {
             console.log("ERROR: value has to be between -100 and 100");
