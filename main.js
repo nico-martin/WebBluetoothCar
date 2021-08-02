@@ -14,6 +14,7 @@ const run = async () => {
   await utils.wait(50);
   mc.stop();
 
+  // listen for bluetooth commands
   bluetoothService(
     (speed = 0) => (speed === 0 ? mc.stop() : mc.left(speed)),
     (speed = 0) => (speed === 0 ? mc.stop() : mc.right(speed))

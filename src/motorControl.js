@@ -32,7 +32,7 @@ const setupPwm = (left, right) =>
         frequency: 50,
         debug: false,
       },
-      function (err) {
+      (err) => {
         if (err) {
           console.error("Error initializing PCA9685");
           reject(err);

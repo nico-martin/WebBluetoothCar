@@ -56,7 +56,7 @@ const bluetoothService = (leftWheel, rightWheel) => {
     ],
   };
 
-  bleno.on("stateChange", function (state) {
+  bleno.on("stateChange", (state) => {
     if (state === "poweredOn") {
       console.log("Bluetooth started");
       bleno.startAdvertising("WebBluetoothCar", [motorControlService.uuid]);
@@ -65,7 +65,7 @@ const bluetoothService = (leftWheel, rightWheel) => {
     }
   });
 
-  bleno.on("advertisingStart", function (err) {
+  bleno.on("advertisingStart", (err) => {
     if (err) {
       console.log("advertisingStart error", err);
       return;
