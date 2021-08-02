@@ -61,8 +61,6 @@ const bluetoothService = async (leftWheel, rightWheel) => {
           const left = parseInt(data.left);
           const right = parseInt(data.right);
 
-          console.log({ left, right });
-
           if (
             isNaN(left) ||
             left < -100 ||
@@ -75,6 +73,8 @@ const bluetoothService = async (leftWheel, rightWheel) => {
             callback(Characteristic.RESULT_UNLIKELY_ERROR);
             return;
           }
+
+          console.log({ left, right });
 
           leftWheel(left);
           rightWheel(right);
