@@ -1,5 +1,6 @@
 process.env["BLENO_DEVICE_NAME"] = "Nicos Web BLE Car";
 
+const pkg = require("../package.json");
 const bleno = require("bleno");
 const Characteristic = bleno.Characteristic;
 
@@ -10,7 +11,7 @@ const bluetoothService = (leftWheel, rightWheel) => {
       new Characteristic({
         uuid: "fff8",
         properties: ["read"],
-        value: new Buffer("1.1.1"),
+        value: new Buffer(pkg.version),
         descriptors: [
           new bleno.Descriptor({
             uuid: "fff9",
