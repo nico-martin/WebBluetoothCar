@@ -3,19 +3,33 @@ process.env["BLENO_DEVICE_NAME"] = "Nicos Web BLE Car";
 const pkg = require("../package.json");
 const bleno = require("bleno");
 const Characteristic = bleno.Characteristic;
+const deviceInfo = require("./deviceInfo");
 
-const bluetoothService = (leftWheel, rightWheel) => {
+const bluetoothService = async (leftWheel, rightWheel) => {
+  const serial = await deviceInfo.deviceSerial();
+
   const deviceInfoService = {
-    uuid: "fff7",
+    uuid: "ff01",
     characteristics: [
       new Characteristic({
-        uuid: "fff8",
+        uuid: "ff02",
         properties: ["read"],
         value: new Buffer(pkg.version),
         descriptors: [
           new bleno.Descriptor({
-            uuid: "fff9",
+            uuid: "ff03",
             value: "software version",
+          }),
+        ],
+      }),
+      new Characteristic({
+        uuid: "ff04",
+        properties: ["read"],
+        value: new Buffer(serial),
+        descriptors: [
+          new bleno.Descriptor({
+            uuid: "ff05",
+            value: "device serial number",
           }),
         ],
       }),
