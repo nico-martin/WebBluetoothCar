@@ -84,7 +84,6 @@ const bluetoothService = async (leftWheel, rightWheel) => {
 
   bleno.on("stateChange", (state) => {
     if (state === "poweredOn") {
-      console.log("Bluetooth started");
       bleno.startAdvertising("WebBluetoothCar", [
         deviceInfoService.uuid,
         motorControlService.uuid,
