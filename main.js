@@ -10,7 +10,7 @@ const run = async () => {
   // greetings
   mc.left(50);
   mc.right(50);
-  await utils.wait(500);
+  await utils.wait(100);
   mc.stop();
 
   // listen for bluetooth commands
