@@ -9,12 +9,12 @@ const bluetoothService = (leftWheel, rightWheel) => {
     characteristics: [
       new Characteristic({
         uuid: "fff8",
-        properties: ["write"],
+        properties: ["read"],
         value: new Buffer("1.1.1"),
         descriptors: [
           new bleno.Descriptor({
             uuid: "fff9",
-            value: "version",
+            value: "software version",
           }),
         ],
       }),
