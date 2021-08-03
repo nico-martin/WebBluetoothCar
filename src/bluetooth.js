@@ -9,10 +9,10 @@ const bluetoothService = async (leftWheel, rightWheel) => {
   const serial = await deviceInfo.deviceSerial();
 
   const deviceInfoService = {
-    uuid: "ff01",
+    uuid: "0x180a",
     characteristics: [
       new Characteristic({
-        uuid: "ff02",
+        uuid: "0x2a25",
         properties: ["read"],
         value: new Buffer(pkg.version),
         descriptors: [
@@ -23,7 +23,7 @@ const bluetoothService = async (leftWheel, rightWheel) => {
         ],
       }),
       new Characteristic({
-        uuid: "ff04",
+        uuid: "0x2a27",
         properties: ["read"],
         value: new Buffer(serial),
         descriptors: [
