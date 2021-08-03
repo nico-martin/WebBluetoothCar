@@ -12,26 +12,19 @@ const bluetoothService = async (leftWheel, rightWheel) => {
     uuid: "180a",
     characteristics: [
       new Characteristic({
-        uuid: "2a25",
+        uuid: "2a29", // Manufacturer Name
         properties: ["read"],
-        value: new Buffer(pkg.version),
-        descriptors: [
-          new bleno.Descriptor({
-            uuid: "ff03",
-            value: "software version",
-          }),
-        ],
+        value: new Buffer("Nico Martin"),
       }),
       new Characteristic({
-        uuid: "2a27",
+        uuid: "2a27", // Software Revision
+        properties: ["read"],
+        value: new Buffer(pkg.version),
+      }),
+      new Characteristic({
+        uuid: "2a25", // Serial number
         properties: ["read"],
         value: new Buffer(serial),
-        descriptors: [
-          new bleno.Descriptor({
-            uuid: "ff05",
-            value: "device serial number",
-          }),
-        ],
       }),
     ],
   };
