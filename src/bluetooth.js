@@ -8,6 +8,8 @@ const deviceInfo = require("./deviceInfo");
 const bluetoothService = async (leftWheel, rightWheel) => {
   const serial = await deviceInfo.deviceSerial();
 
+  // standard service and characertistic UUIDs
+  // https://btprodspecificationrefs.blob.core.windows.net/assigned-values/16-bit%20UUID%20Numbers%20Document.pdf
   const deviceInfoService = {
     uuid: "180a",
     characteristics: [
@@ -17,7 +19,7 @@ const bluetoothService = async (leftWheel, rightWheel) => {
         value: new Buffer("Nico Martin"),
       }),
       new Characteristic({
-        uuid: "2a27", // Software Revision
+        uuid: "2a28", // Software Revision
         properties: ["read"],
         value: new Buffer(pkg.version),
       }),
@@ -29,6 +31,7 @@ const bluetoothService = async (leftWheel, rightWheel) => {
     ],
   };
 
+  // custom service and characertistic UUIDs
   const motorControlService = {
     uuid: "fff1",
     characteristics: [
