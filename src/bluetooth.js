@@ -99,6 +99,12 @@ const bluetoothService = async (leftWheel, rightWheel) => {
 
     bleno.setServices([deviceInfoService, motorControlService]);
   });
+
+  bleno.on("disconnect", () => {
+    console.log("stop");
+    leftWheel(0);
+    rightWheel(0);
+  });
 };
 
 module.exports = bluetoothService;
