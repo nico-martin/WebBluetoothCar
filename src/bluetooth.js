@@ -101,7 +101,7 @@ const bluetoothService = async (leftWheel, rightWheel) => {
   });
 
   bleno.on("disconnect", () => {
-    console.log("stop");
+    console.log("disconnected from client");
     leftWheel(0);
     rightWheel(0);
   });
