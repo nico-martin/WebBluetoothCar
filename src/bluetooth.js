@@ -24,7 +24,9 @@ const bluetoothService = async (leftWheel, rightWheel) => {
         value: new Buffer(pkg.version),
       }),
       new Characteristic({
-        uuid: "2a25", // Serial number
+        // since serial_number_string (2a25) is blocked, we take the Model Number
+        // https://github.com/WebBluetoothCG/registries/blob/master/gatt_blocklist.txt#L50-L52
+        uuid: "2a24", // Model Number
         properties: ["read"],
         value: new Buffer(serial),
       }),
