@@ -129,7 +129,6 @@ const bluetoothService = async (leftWheel, rightWheel) => {
                     rightWheel(right);
                     callback(Characteristic.RESULT_SUCCESS);*/
         },
-        value: new Buffer([50, 50]),
       }),
     ],
   };
