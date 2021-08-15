@@ -35,7 +35,7 @@ const bluetoothService = async (leftWheel, rightWheel) => {
 
   // custom service and characertistic UUIDs
   const motorControlService = {
-    uuid: "c10e3e56-fdd3-11eb-9a03-0242ac130003",
+    uuid: "c10e3e56fdd311eb9a030242ac130003",
     characteristics: [
       new Characteristic({
         uuid: "fff2",
@@ -79,11 +79,11 @@ const bluetoothService = async (leftWheel, rightWheel) => {
       }),
       // todo: TEST THIS
       new Characteristic({
-        uuid: "35a1022c-fdd3-11eb-9a03-0242ac130003",
+        uuid: "35a1022cfdd311eb9a030242ac130003",
         properties: ["write", "read"],
         descriptors: [
           new bleno.Descriptor({
-            uuid: "95675d7c-fdd4-11eb-9a03-0242ac130003",
+            uuid: "95675d7cfdd411eb9a030242ac130003",
             value:
               "motorControl Characteristic for both wheels, expects a ByteArray with two elements (left- and right wheel) between 0 and 200",
           }),
