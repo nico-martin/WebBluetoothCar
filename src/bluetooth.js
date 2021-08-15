@@ -91,8 +91,8 @@ const bluetoothService = async (leftWheel, rightWheel) => {
         onWriteRequest: (data, offset, withoutResponse, callback) => {
           console.log(data);
           console.log('RESULT_INVALID_ATTRIBUTE_LENGTH', data.length !== 2);
-          const left = data.readUInt8(0);
-          const right = data.readUInt8(1);
+          const left = data.readUInt8(0) - 100;
+          const right = data.readUInt8(1) - 100;
           console.log({left, right});
 
           if (data.length !== 2) {
