@@ -35,7 +35,7 @@ const bluetoothService = async (leftWheel, rightWheel) => {
 
   // custom service and characertistic UUIDs
   const motorControlService = {
-    uuid: "fff1",
+    uuid: "c10e3e56-fdd3-11eb-9a03-0242ac130003",
     characteristics: [
       new Characteristic({
         uuid: "fff2",
@@ -44,7 +44,7 @@ const bluetoothService = async (leftWheel, rightWheel) => {
           new bleno.Descriptor({
             uuid: "fff3",
             value:
-              "motorControl Characteristic for left wheel, expects a number between -100 and 100",
+              "motorControlOld Characteristic for both wheels, expects a ByteArray with two elements (left- and right wheel) between 0 and 200",
           }),
         ],
         onWriteRequest: (data, offset, withoutResponse, callback) => {
@@ -75,6 +75,58 @@ const bluetoothService = async (leftWheel, rightWheel) => {
           leftWheel(left);
           rightWheel(right);
           callback(Characteristic.RESULT_SUCCESS);
+        },
+      }),
+      new Characteristic({
+        uuid: "35a1022c-fdd3-11eb-9a03-0242ac130003",
+        properties: ["write"],
+        descriptors: [
+          new bleno.Descriptor({
+            uuid: "95675d7c-fdd4-11eb-9a03-0242ac130003",
+            value:
+              "motorControl Characteristic for both wheels, expects a ByteArray with two elements (left- and right wheel) between 0 and 200",
+          }),
+        ],
+        onWriteRequest: (data, offset, withoutResponse, callback) => {
+          console.log(data);
+          console.log('RESULT_INVALID_ATTRIBUTE_LENGTH', data.length !== 2);
+          const left = data.readUInt8(0);
+          const right = data.readUInt8(1);
+          console.log({left,right});
+
+          if(data.length !== 2) {
+            callback(this.RESULT_INVALID_ATTRIBUTE_LENGTH);
+          }
+
+          callback(Characteristic.RESULT_SUCCESS);
+/*
+          data = JSON.parse(data.toString());
+
+          if (!("left" in data) || !("right" in data)) {
+            console.log("ERROR: invalid data");
+            callback(Characteristic.RESULT_UNLIKELY_ERROR);
+            return;
+          }
+
+          const left = parseInt(data.left);
+          const right = parseInt(data.right);
+
+          if (
+            isNaN(left) ||
+            left < -100 ||
+            left > 100 ||
+            isNaN(right) ||
+            right < -100 ||
+            right > 100
+          ) {
+            console.log("ERROR: value has to be between -100 and 100");
+            callback(Characteristic.RESULT_UNLIKELY_ERROR);
+            return;
+          }
+
+          leftWheel(left);
+          rightWheel(right);
+          callback(Characteristic.RESULT_SUCCESS);*/
         },
       }),
     ],
