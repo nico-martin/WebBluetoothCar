@@ -35,7 +35,7 @@ const setupPwm = (left, right) =>
       (err) => {
         if (err) {
           console.error("Error initializing PCA9685");
-          console.error(error);
+          console.error(err);
           reject(err);
           process.exit(-1);
         }
