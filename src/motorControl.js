@@ -7,13 +7,13 @@ const SPEED_MIN = 500;
 const WHEELS = {
   LEFT: {
     PWM: 0,
-    PIN_FORWARD: 2,
-    PIN_BACKWARD: 1,
+    PIN_FORWARD: 3,
+    PIN_BACKWARD: 4,
   },
   RIGHT: {
     PWM: 5,
-    PIN_FORWARD: 3,
-    PIN_BACKWARD: 4,
+    PIN_FORWARD: 2,
+    PIN_BACKWARD: 1,
   },
 };
 
