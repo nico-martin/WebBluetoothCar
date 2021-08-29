@@ -1,7 +1,7 @@
 const i2cBus = require("i2c-bus");
 const Pca9685Driver = require("pca9685").Pca9685Driver;
 
-const SPEED_MAX = 4000;
+const SPEED_MAX = 4094;
 const SPEED_MIN = 500;
 
 const WHEELS = {
@@ -39,8 +39,8 @@ const setupPwm = (left, right) =>
           reject(err);
           process.exit(-1);
         }
-        pwm.setDutyCycle(left, 100);
-        pwm.setDutyCycle(right, 100);
+        pwm.setDutyCycle(left, 200);
+        pwm.setDutyCycle(right, 50);
         resolve(pwm);
       }
     );
