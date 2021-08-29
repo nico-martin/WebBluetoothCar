@@ -39,8 +39,8 @@ const setupPwm = (left, right) =>
           reject(err);
           process.exit(-1);
         }
-        pwm.setDutyCycle(left, 200);
-        pwm.setDutyCycle(right, 50);
+        pwm.setDutyCycle(left, 1);
+        pwm.setDutyCycle(right, 1);
         resolve(pwm);
       }
     );
