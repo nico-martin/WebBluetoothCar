@@ -1,4 +1,4 @@
-process.env["BLENO_DEVICE_NAME"] = "Nicos Web BLE Car";
+process.env["BLENO_DEVICE_NAME"] = "SpeedWheels Bluetooth Car";
 
 const pkg = require("../package.json");
 const bleno = require("bleno");
@@ -80,7 +80,7 @@ const bluetoothService = async (leftWheel, rightWheel) => {
 
   bleno.on("stateChange", (state) => {
     if (state === "poweredOn") {
-      bleno.startAdvertising("WebBluetoothCar", [
+      bleno.startAdvertising("SpeedWheels", [
         deviceInfoService.uuid,
         motorControlService.uuid,
       ]);
