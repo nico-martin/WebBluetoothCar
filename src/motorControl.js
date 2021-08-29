@@ -29,7 +29,7 @@ const setupPwm = (left, right) =>
       {
         i2c: i2cBus.openSync(1),
         address: 0x40,
-        frequency: 50,
+        frequency: 100,
         debug: false,
       },
       (err) => {
