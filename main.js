@@ -38,7 +38,7 @@ const run = async () => {
   await bluetoothService(
     async () => {
       basicMatrix(ledMatrix.go);
-      await utils(200);
+      await utils.wait(200);
       basicMatrix(ledMatrix.stop);
     },
     ({ speedLeft = 0, speedRight = 0 }) => {
