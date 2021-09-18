@@ -70,9 +70,7 @@ const bluetoothService = async (move) => {
             return;
           }
 
-          leftWheel(left);
-          rightWheel(right);
-          move({ left: 0, right: 0 });
+          move({ left, right });
           callback(Characteristic.RESULT_SUCCESS);
         },
       }),
@@ -101,8 +99,7 @@ const bluetoothService = async (move) => {
 
   bleno.on("disconnect", () => {
     console.log("disconnected from client");
-    leftWheel(0);
-    rightWheel(0);
+    move({ left: 0, right: 0 });
   });
 };
 
