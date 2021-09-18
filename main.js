@@ -9,7 +9,7 @@ const run = async () => {
   const mc = await motorControl();
 
   // greetings
-  scrollText(`Hello, I'm ready!`, {
+  scrollText(`Hello I m ready`, {
     infinite: false,
   });
 
