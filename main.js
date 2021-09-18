@@ -37,9 +37,11 @@ const run = async () => {
   // listen for bluetooth commands
   await bluetoothService(
     async () => {
-      basicMatrix(ledMatrix.go, ledDisplay);
+      console.log("BLE init");
+      /*
+      await basicMatrix(ledMatrix.go, ledDisplay);
       await utils.wait(200);
-      basicMatrix(ledMatrix.stop, ledDisplay);
+      await basicMatrix(ledMatrix.stop, ledDisplay);*/
     },
     ({ speedLeft = 0, speedRight = 0 }) => {
       if (speedLeft === 0 || speedRight === 0) {
