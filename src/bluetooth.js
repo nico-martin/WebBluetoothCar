@@ -5,7 +5,7 @@ const bleno = require("bleno");
 const Characteristic = bleno.Characteristic;
 const deviceInfo = require("./deviceInfo");
 
-const bluetoothService = async (leftWheel, rightWheel) => {
+const bluetoothService = async (move) => {
   const serial = await deviceInfo.deviceSerial();
 
   // standard service and characertistic UUIDs
@@ -72,6 +72,7 @@ const bluetoothService = async (leftWheel, rightWheel) => {
 
           leftWheel(left);
           rightWheel(right);
+          move({ left: 0, right: 0 });
           callback(Characteristic.RESULT_SUCCESS);
         },
       }),

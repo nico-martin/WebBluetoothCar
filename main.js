@@ -1,6 +1,7 @@
 const motorControl = require("./src/motorControl.js");
 const bluetoothService = require("./src/bluetooth.js");
 const utils = require("./src/utils.js");
+const { scrollText } = require("matrix11x7");
 
 const run = async () => {
   console.log("starting..");
@@ -8,16 +9,19 @@ const run = async () => {
   const mc = await motorControl();
 
   // greetings
-  mc.left(50);
-  mc.right(50);
-  await utils.wait(100);
-  mc.stop();
+  scrollText(`Hello, I'm ready!`, {
+    infinite: false,
+  });
 
   // listen for bluetooth commands
-  await bluetoothService(
-    (speed = 0) => (speed === 0 ? mc.stop() : mc.left(speed)),
-    (speed = 0) => (speed === 0 ? mc.stop() : mc.right(speed))
-  );
+  await bluetoothService(({ speedLeft = 0, speedRight = 0 }) => {
+    if (speedLeft === 0 || speedRight === 0) {
+      mc.stop();
+    } else {
+      mc.left(speedLeft);
+      mc.right(speedRight);
+    }
+  });
 
   console.log("started");
 };
