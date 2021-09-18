@@ -30,30 +30,25 @@ const run = async () => {
   const mc = await motorControl();
 
   // greetings
+  const ledDisplay = await basicMatrix(ledMatrix.go);
+  await utils.wait(200);
+  await basicMatrix(ledMatrix.stop);
+  /*
   const ledDisplay = await scrollText("Ready", {
     infinite: false,
-  });
+  });*/
 
   // listen for bluetooth commands
-  await bluetoothService(
-    async () => {
-      console.log("BLE init");
-      /*
-      await basicMatrix(ledMatrix.go, ledDisplay);
-      await utils.wait(200);
-      await basicMatrix(ledMatrix.stop, ledDisplay);*/
-    },
-    ({ speedLeft = 0, speedRight = 0 }) => {
-      if (speedLeft === 0 || speedRight === 0) {
-        mc.stop();
-        basicMatrix(ledMatrix.stop);
-      } else {
-        mc.left(speedLeft);
-        mc.right(speedRight);
-        basicMatrix(ledMatrix.go, ledDisplay);
-      }
+  await bluetoothService(({ speedLeft = 0, speedRight = 0 }) => {
+    if (speedLeft === 0 || speedRight === 0) {
+      mc.stop();
+      basicMatrix(ledMatrix.stop);
+    } else {
+      mc.left(speedLeft);
+      mc.right(speedRight);
+      basicMatrix(ledMatrix.go, ledDisplay);
     }
-  );
+  });
 
   console.log("started");
 };

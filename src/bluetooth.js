@@ -5,7 +5,7 @@ const bleno = require("bleno");
 const Characteristic = bleno.Characteristic;
 const deviceInfo = require("./deviceInfo");
 
-const bluetoothService = async (init, move) => {
+const bluetoothService = async (move) => {
   const serial = await deviceInfo.deviceSerial();
 
   // standard service and characertistic UUIDs
@@ -83,7 +83,6 @@ const bluetoothService = async (init, move) => {
         deviceInfoService.uuid,
         motorControlService.uuid,
       ]);
-      init();
     } else {
       bleno.stopAdvertising();
     }
