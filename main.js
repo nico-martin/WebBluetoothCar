@@ -35,16 +35,23 @@ const run = async () => {
   });
 
   // listen for bluetooth commands
-  await bluetoothService(({ speedLeft = 0, speedRight = 0 }) => {
-    if (speedLeft === 0 || speedRight === 0) {
-      mc.stop();
-      basicMatrix(ledMatrix.stop);
-    } else {
-      mc.left(speedLeft);
-      mc.right(speedRight);
+  await bluetoothService(
+    async () => {
       basicMatrix(ledMatrix.go);
+      await utils(200);
+      basicMatrix(ledMatrix.stop);
+    },
+    ({ speedLeft = 0, speedRight = 0 }) => {
+      if (speedLeft === 0 || speedRight === 0) {
+        mc.stop();
+        basicMatrix(ledMatrix.stop);
+      } else {
+        mc.left(speedLeft);
+        mc.right(speedRight);
+        basicMatrix(ledMatrix.go);
+      }
     }
-  });
+  );
 
   console.log("started");
 };
