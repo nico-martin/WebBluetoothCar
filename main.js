@@ -30,16 +30,16 @@ const run = async () => {
   const mc = await motorControl();
 
   // greetings
-  scrollText("Ready", {
+  const ledDisplay = await scrollText("Ready", {
     infinite: false,
   });
 
   // listen for bluetooth commands
   await bluetoothService(
     async () => {
-      basicMatrix(ledMatrix.go);
+      basicMatrix(ledMatrix.go, ledDisplay);
       await utils.wait(200);
-      basicMatrix(ledMatrix.stop);
+      basicMatrix(ledMatrix.stop, ledDisplay);
     },
     ({ speedLeft = 0, speedRight = 0 }) => {
       if (speedLeft === 0 || speedRight === 0) {
@@ -48,7 +48,7 @@ const run = async () => {
       } else {
         mc.left(speedLeft);
         mc.right(speedRight);
-        basicMatrix(ledMatrix.go);
+        basicMatrix(ledMatrix.go, ledDisplay);
       }
     }
   );
