@@ -9,7 +9,6 @@ const bluetoothService = async (move, onBatteryUpdate) => {
   const battery = batteryService(onBatteryUpdate);
   const device = await deviceInfoService();
   const motorControl = motorControlService(move);
-  console.log(motorControl);
 
   bleno.on('stateChange', (state) =>
     state === 'poweredOn'
