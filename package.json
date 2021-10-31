@@ -9,6 +9,7 @@
   "author": "Nico Martin <mail@nicomartin.ch>",
   "license": "ISC",
   "dependencies": {
+    "@nico-martin/ina219": "^1.0.1",
     "bleno": "^0.5.0",
     "child_process": "^1.0.2",
     "i2c-bus": "^5.2.2",
