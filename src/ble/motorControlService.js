@@ -17,6 +17,7 @@ module.exports = (move) => ({
       onWriteRequest: (data, offset, withoutResponse, callback) => {
         const left = data.readUInt8(0) - 100;
         const right = data.readUInt8(1) - 100;
+        console.log({ left, right });
 
         if (data.length !== 2) {
           console.log('ERROR: invalid data', data);

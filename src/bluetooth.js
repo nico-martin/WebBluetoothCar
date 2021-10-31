@@ -11,6 +11,7 @@ const bluetoothService = async (move, onBatteryUpdate) => {
   const motorControl = motorControlService(move);
 
   bleno.on('stateChange', (state) => {
+    console.log('stateChange', state);
     if (state === 'poweredOn') {
       bleno.startAdvertising('SpeedWheels', [
         battery.uuid,
