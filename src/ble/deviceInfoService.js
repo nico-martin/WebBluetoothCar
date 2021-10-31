@@ -1,7 +1,7 @@
 const bleno = require('bleno');
 const Characteristic = bleno.Characteristic;
 const pkg = require('../../package.json');
-const deviceInfo = require('./deviceInfo');
+const deviceInfo = require('../deviceInfo');
 
 // standard service and characertistic UUIDs
 // https://btprodspecificationrefs.blob.core.windows.net/assigned-values/16-bit%20UUID%20Numbers%20Document.pdf
