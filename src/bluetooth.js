@@ -4,7 +4,6 @@ const bleno = require('bleno');
 const batteryService = require('./ble/batteryService');
 const deviceInfoService = require('./ble/deviceInfoService');
 const motorControlService = require('./ble/motorControlService');
-const matrixService = require('./ble/matrixService');
 
 const bluetoothService = async (move, onBatteryUpdate, setMatrix) => {
   const battery = batteryService(onBatteryUpdate);
@@ -26,6 +25,12 @@ const bluetoothService = async (move, onBatteryUpdate, setMatrix) => {
       console.log('advertisingStart error', err);
       return;
     }
+
+    console.log('services', {
+      battery: battery.uuid,
+      device: device.uuid,
+      motorControl: motorControl.uuid,
+    });
 
     bleno.setServices([battery, device, motorControl]);
   });
