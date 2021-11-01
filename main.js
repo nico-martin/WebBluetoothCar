@@ -6,7 +6,7 @@ const battery = require('./src/battery');
 const events = require('events');
 const em = new events.EventEmitter();
 
-const { ledMatrix } = require('./src/matrix');
+const { ledMatrix, arrayToMatrix } = require('./src/matrix');
 
 const run = async () => {
   console.log('starting..');
@@ -24,17 +24,24 @@ const run = async () => {
     const onBatteryUpdate = (listener) =>
       em.addListener('BATTERY_UPDATE', listener);
 
+    const setMatrix = (array) =>
+      matrix11x7Display.basicMatrix(arrayToMatrix(array));
+
     // listen for bluetooth commands
-    await bluetoothService(({ speedLeft = 0, speedRight = 0 }) => {
-      if (speedLeft === 0 || speedRight === 0) {
-        mc.stop();
-        //matrix11x7Display.basicMatrix(ledMatrix.stop);
-      } else {
-        mc.left(speedLeft);
-        mc.right(speedRight);
-        //matrix11x7Display.basicMatrix(ledMatrix.go, ledDisplay);
-      }
-    }, onBatteryUpdate);
+    await bluetoothService(
+      ({ speedLeft = 0, speedRight = 0 }) => {
+        if (speedLeft === 0 || speedRight === 0) {
+          mc.stop();
+          //matrix11x7Display.basicMatrix(ledMatrix.stop);
+        } else {
+          mc.left(speedLeft);
+          mc.right(speedRight);
+          //matrix11x7Display.basicMatrix(ledMatrix.go, ledDisplay);
+        }
+      },
+      onBatteryUpdate,
+      setMatrix
+    );
 
     console.log('started');
   } catch (e) {

@@ -4,11 +4,13 @@ const bleno = require('bleno');
 const batteryService = require('./ble/batteryService');
 const deviceInfoService = require('./ble/deviceInfoService');
 const motorControlService = require('./ble/motorControlService');
+const matrixService = require('./ble/matrixService');
 
-const bluetoothService = async (move, onBatteryUpdate) => {
+const bluetoothService = async (move, onBatteryUpdate, setMatrix) => {
   const battery = batteryService(onBatteryUpdate);
   const device = await deviceInfoService();
   const motorControl = motorControlService(move);
+  const matrix = matrixService(setMatrix);
 
   bleno.on('stateChange', (state) =>
     state === 'poweredOn'
@@ -16,6 +18,7 @@ const bluetoothService = async (move, onBatteryUpdate) => {
           battery.uuid,
           device.uuid,
           motorControl.uuid,
+          matrix.uuid,
         ])
       : bleno.stopAdvertising()
   );
@@ -26,7 +29,7 @@ const bluetoothService = async (move, onBatteryUpdate) => {
       return;
     }
 
-    bleno.setServices([battery, device, motorControl]);
+    bleno.setServices([battery, device, motorControl, matrix]);
   });
 
   bleno.on('disconnect', () => {
