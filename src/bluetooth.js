@@ -1,4 +1,6 @@
-process.env['BLENO_DEVICE_NAME'] = 'SpeedWheels Bluetooth Car';
+require('dotenv').config();
+const name = process.env.BLENO_DEVICE_NAME || 'SpeedWheels';
+process.env['BLENO_DEVICE_NAME'] = name;
 
 const bleno = require('bleno');
 const batteryService = require('./ble/batteryService');
@@ -12,7 +14,7 @@ const bluetoothService = async (move, onBatteryUpdate, setMatrix) => {
 
   bleno.on('stateChange', (state) =>
     state === 'poweredOn'
-      ? bleno.startAdvertising('SpeedWheels', [
+      ? bleno.startAdvertising(name, [
           battery.uuid,
           device.uuid,
           motorControl.uuid,
