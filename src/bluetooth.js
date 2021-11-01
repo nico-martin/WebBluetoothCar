@@ -26,12 +26,6 @@ const bluetoothService = async (move, onBatteryUpdate, setMatrix) => {
       return;
     }
 
-    console.log('services', {
-      battery: battery.uuid,
-      device: device.uuid,
-      motorControl: motorControl.uuid,
-    });
-
     bleno.setServices([battery, device, motorControl]);
   });
 
