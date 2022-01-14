@@ -4,7 +4,7 @@ const events = require('events');
 const Characteristic = bleno.Characteristic;
 const em = new events.EventEmitter();
 
-const startScreen = ledMatrix.hi;
+const startScreen = ledMatrix.heart;
 
 let matrix = matrixToArray(startScreen);
 
