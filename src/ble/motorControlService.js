@@ -67,6 +67,7 @@ module.exports = (move, setMatrix) => {
           }
 
           matrix = Array.from(data);
+          console.log('matrix update', matrix);
           em.emit('MATRIX_UPDATE', matrix);
           setMatrix(matrix);
           callback(Characteristic.RESULT_SUCCESS);
